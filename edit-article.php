@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<php lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Edit Article - Admin - CMS PDO System</title>
@@ -49,19 +49,19 @@
             >
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="admin.html">Dashboard</a>
+                        <a class="nav-link" href="admin.php">Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="create-article.html">Create Article</a>
+                        <a class="nav-link" href="create-article.php">Create Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="edit-article.html">Edit Article</a>
+                        <a class="nav-link active" aria-current="page" href="edit-article.php">Edit Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">View Site</a>
+                        <a class="nav-link" href="index.php">View Site</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="login.html">Logout</a>
+                        <a class="nav-link" href="login.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -71,7 +71,7 @@
     <!-- Main Content -->
     <main class="container my-5">
         <h2>Edit Article</h2>
-        <form action="admin.html" method="post">
+        <form action="admin.php" method="post">
             <div class="mb-3">
                 <label for="title" class="form-label">Article Title *</label>
                 <input type="text" class="form-control" id="title" value="Current Article Title" required>
@@ -97,7 +97,7 @@
                 <input type="url" class="form-control" id="image" value="https://example.com/image.jpg">
             </div>
             <button type="submit" class="btn btn-primary">Update Article</button>
-            <a href="admin.html" class="btn btn-secondary ms-2">Cancel</a>
+            <a href="admin.php" class="btn btn-secondary ms-2">Cancel</a>
         </form>
     </main>
 

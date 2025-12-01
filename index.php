@@ -1,4 +1,11 @@
+<?php 
+include 'partials/header.php';
+include 'partials/navbar.php';
+include 'partials/hero.php';
 
+
+
+?>
    
  
 
@@ -60,4 +67,7 @@
         </div>
     </main>
 
+<?php
+include 'partials/footer.php';
+?>
     

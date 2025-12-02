@@ -3,8 +3,13 @@ include 'partials/header.php';
 include 'partials/navbar.php';
 include 'partials/hero.php';
 
+if(isPostRequest()) {
+    $username = getPostData('username');
 
-    ?>
+    var_dump($username);
+}
+
+?>
   
 
     <!-- Main Content -->
@@ -12,13 +17,14 @@ include 'partials/hero.php';
         <h2 class="text-center mb-4">Register</h2>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="welcome.php" method="post">
+                <form  method="post">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Full Name *</label>
+                        <label for="name" class="form-label"> Username *</label>
                         <input
+                        name="username"
                             type="text"
                             class="form-control"
-                            id="name"
+                            id="username"
                             required
                         >
                     </div>

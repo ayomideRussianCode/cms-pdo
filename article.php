@@ -10,7 +10,7 @@ if ($articleId) {
 
     $article = new Article();
 
-    $articleData = $article->getArticleById($articleId);
+    $articleData = $article->getArticleWithOwnerById($articleId);
 } else {
     echo "Article not found ";
     exit;
@@ -40,8 +40,19 @@ if ($articleId) {
 
         <?php endif; ?>
     </div>
+    <section>
+        <div class="container">
+            <h1 class="display-4"><?php echo htmlspecialchars($articleData->title)?></h1>
+            <small>
+                By <a href=""><?php echo $articleData->author;?></a>
+                <span>
+                    <?php echo $article->formatCreatedAt($articleData->created_at)?>
+            </span>
+            </small>
+        </div>
+    </section>
     <!-- Article Content -->
-    <article>
+    <article class="container my-5">
         <?php echo htmlspecialchars($articleData->content) ?>
     </article>
 
@@ -56,7 +67,8 @@ if ($articleId) {
 
     <!-- Back to Home Button -->
     <div class="mt-4">
-        <a href="index.php" class="btn btn-secondary">← Back to Home</a>
+        <a href="index.php" class="btn btn-secondary">← Back to'
+            Home</a>
     </div>
 </main>
 

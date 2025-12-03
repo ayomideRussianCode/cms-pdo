@@ -4,9 +4,15 @@ include base_path('partials/navbar.php');
 include base_path('partials/hero.php');
 
 
-$article = new Article();
+$articleId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
-$articles = $article->get_all();
+if($articleId) {
+
+    $article = new Article();
+} else {
+    echo "Article not found ";
+    exit;
+}
 
 ?>
 

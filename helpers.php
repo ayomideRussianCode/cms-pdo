@@ -1,8 +1,8 @@
 <?php
 
-function base_url($path = '') {
+function base_url($path = "") {
 
-    $protocol = isset($_SERVER['HTTP']) && $_SERVER['HTTPS'] !== "off" ? 'https://' : 'http://';
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== "off" ? 'https://' : 'http://';
     $host = $_SERVER['HTTP_HOST'];
 
     $baseUrl = $protocol . $host . '/'. PROJECT_DIR;
@@ -10,18 +10,18 @@ function base_url($path = '') {
     return $baseUrl . '/' . ltrim($path, '/');
 }
 
-function base_path ($path ="") {
-    $rootPath = dirname( __DIR__). DIRECTORY_SEPARATOR . PROJECT_DIR;
+function base_path ($path = "") {
+    $rootPath = dirname( __DIR__) . DIRECTORY_SEPARATOR . PROJECT_DIR;
 
     return $rootPath . DIRECTORY_SEPARATOR . ltrim($path, DIRECTORY_SEPARATOR);
 }
 
-function uploads_path($filename = ''){
+function uploads_path($filename = ""){
 
     return base_path('uploads'. DIRECTORY_SEPARATOR . $filename);
 }
 
-function uploads_url($filename = '')
+function uploads_url($filename = "")
 {
     return base_path('uploads/' . ltrim($filename, '/'));
 }

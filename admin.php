@@ -15,7 +15,7 @@ if(!$user->isLoggedIn()){
 
 <!-- Main Content -->
 <main class="container my-5">
-    <h2 class="mb-4"> Welcome <?php echo $_SESSION['username'] ?> to your Admin Dashboard</h2>
+    <h2 class="mb-4"> Welcome <?php echo $_SESSION['username'] ?> , to your Admin Dashboard</h2>
     <!-- Articles Table -->
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">

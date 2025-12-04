@@ -9,6 +9,14 @@ if(!$user->isLoggedIn()){
     redirect('login.php');
 }
 
+$article = new Article();
+
+$userId = $_SESSION['user_id'];
+
+$userArticles  = $article->getArticlesByUser($userId);
+
+var_dump($userArticles);
+
 ?>
 
 

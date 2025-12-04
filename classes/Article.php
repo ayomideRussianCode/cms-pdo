@@ -69,7 +69,7 @@ class Article{
 
         $stmt->execute();
 
-        $article = $stmt->fetch(PDO::FETCH_OBJ);
+        $article = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         if ($article) {
             return $article;
@@ -78,8 +78,20 @@ class Article{
         }
     }
 
+    public function getArticlesbyUser($userId) {
+
+        $query = " SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY created_at DESC ";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public  function formatCreatedAt($date) {
-        return date('F,j,Y', strtotime($date));
+        return date('F j,Y', strtotime($date));
     }
     
 }

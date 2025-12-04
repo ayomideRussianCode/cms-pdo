@@ -14,6 +14,7 @@ if(isPostRequest()) {
     if ($user->register($username, $email,$password)){
 
         redirect('login.php');
+        exit;
     }else {
         echo "Registration failed";
     }

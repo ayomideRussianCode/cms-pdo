@@ -12,7 +12,7 @@ if(isPostRequest()){
     if ($user->login($email, $password)){
 
         redirect('admin.php');
-
+        exit;
     }else {
 
         echo "Login failed";

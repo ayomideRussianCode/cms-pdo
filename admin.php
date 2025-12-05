@@ -9,9 +9,7 @@ $userId = $_SESSION['user_id'];
 
 $userArticles  = $article->getArticlesByUser($userId);
 
-
 ?>
-
 
 
 <!-- Main Content -->

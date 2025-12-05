@@ -14,7 +14,7 @@ class User{
     }
 
     public function register($username, $email, $password) {
-        $query = "INSERT INTO " . $this->table . "(username, email, password) VALUES(:username, :email, :password)";
+        $query = " INSERT INTO " . $this->table . "(username, email, password) VALUES(:username, :email, :password)";
         $stmt = $this->conn->prepare($query);
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $stmt->bindParam(':username', $username);
@@ -42,7 +42,7 @@ class User{
     if ($user && password_verify($password, $user->password)){
 
             $_SESSION['logged_in'] = true;
-            $_SESSION['username'] = $user->username;;
+            $_SESSION['username'] = $user->username;
             $_SESSION['email'] = $user->email;
             $_SESSION['user_id'] = $user->id;
 

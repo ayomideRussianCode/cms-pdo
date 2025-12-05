@@ -67,8 +67,7 @@ if ($articleId) {
 
     <!-- Back to Home Button -->
     <div class="mt-4">
-        <a href="index.php" class="btn btn-secondary">←Back to
-            Home</a>
+        <a href="index.php" class="btn btn-secondary">← Back to Home</a>
     </div>
 </main>
 

@@ -1,6 +1,5 @@
 <?php 
 
-
 class Article{
 
     private $conn;
@@ -69,7 +68,7 @@ class Article{
 
         $stmt->execute();
 
-        $article = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $article = $stmt->fetch(PDO::FETCH_OBJ);
 
         if ($article) {
             return $article;
@@ -78,7 +77,7 @@ class Article{
         }
     }
 
-    public function getArticlesbyUser($userId) {
+    public function getArticlesByUser($userId) {
 
         $query = " SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY created_at DESC ";
         $stmt = $this->conn->prepare($query);

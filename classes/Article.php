@@ -45,9 +45,17 @@ class Article
 
         $article = $stmt->fetch(PDO::FETCH_OBJ);
 
+        //edit article by checking if the user_id in session correlates
+
         if ($article) {
-            return $article;
-        } else {
+
+            if($article->user_id ==$_SESSION['user_id']) {
+
+                return $article;
+            } else {
+                redirect('admin.php');
+            }
+        }else{
             return false;
         }
     }
@@ -88,24 +96,23 @@ class Article
         if ($article) {
 
             //check for user ownership before deletion
-            if ($article->user_id === $_SESSION['user_id']){
+            if ($article->user_id === $_SESSION['user_id']) {
 
                 if (!empty($article->image) && file_exists($article->image)) {
-                if (!unlink($article->image)) {
-                    return false;
+                    if (!unlink($article->image)) {
+                        return false;
+                    }
                 }
+
+                $query = " DELETE FROM " . $this->table . " WHERE id = :id";
+
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+                return $stmt->execute();
+            } else {
+                redirect('admin.php');
             }
-
-            $query = " DELETE FROM " . $this->table . " WHERE id = :id";
-
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-
-            return $stmt->execute();
-
-        } else {
-            redirect('admin.php');
-        }
         }
         return false;
     }

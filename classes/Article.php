@@ -1,28 +1,31 @@
-<?php 
+<?php
 
-class Article{
+class Article
+{
 
     private $conn;
 
     private $table = 'articles';
 
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $database = new Database;
         $this->conn = $database->getConnection();
-
     }
 
-    public function getExcerpt($content, $length = 100) {
-        if (strlen($content) > $length){
+    public function getExcerpt($content, $length = 100)
+    {
+        if (strlen($content) > $length) {
             return substr($content, 0, $length) . "...";
         }
 
         return $content;
     }
-    
-    public function get_all() {
+
+    public function get_all()
+    {
 
         $query = " SELECT * FROM " . $this->table . " ORDER BY id DESC ";
         $stmt = $this->conn->prepare($query);
@@ -31,7 +34,8 @@ class Article{
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getArticleById($id) {
+    public function getArticleById($id)
+    {
         $query = " SELECT * FROM " . $this->table .  " WHERE id = :id LIMIT 1 ";
         $stmt = $this->conn->prepare($query);
 
@@ -41,7 +45,7 @@ class Article{
 
         $article = $stmt->fetch(PDO::FETCH_OBJ);
 
-        if($article){
+        if ($article) {
             return $article;
         } else {
             return false;
@@ -58,7 +62,7 @@ class Article{
         articles.created_at,
         users.username AS author,
         users.email AS author_email
-        FROM " . $this->table ."
+        FROM " . $this->table . "
         JOIN users ON articles.user_id = users.id
         WHERE articles.id = :id LIMIT 1 ";
 
@@ -77,7 +81,37 @@ class Article{
         }
     }
 
-    public function getArticlesByUser($userId) {
+    public function deleteWithImage($id)
+    {
+
+        $article = $this->getArticleById($id);
+        if ($article) {
+
+            //check for user ownership before deletion
+            if ($article->user_id === $_SESSION['user_id']){
+
+                if (!empty($article->image) && file_exists($article->image)) {
+                if (!unlink($article->image)) {
+                    return false;
+                }
+            }
+
+            $query = " DELETE FROM " . $this->table . " WHERE id = :id";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+
+        } else {
+            redirect('admin.php');
+        }
+        }
+        return false;
+    }
+
+    public function getArticlesByUser($userId)
+    {
 
         $query = " SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY created_at DESC ";
         $stmt = $this->conn->prepare($query);
@@ -89,13 +123,15 @@ class Article{
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public  function formatCreatedAt($date) {
+    public  function formatCreatedAt($date)
+    {
         return date('F j,Y', strtotime($date));
     }
-    
-    public function create($title, $content, $author_id, $created_at, $imagePath) {
 
-        $query = " INSERT INTO " . $this->table . " (title, content, user_id, created_at, image) VALUES (:title, :content, :user_id, :created_at,:image) " ;
+    public function create($title, $content, $author_id, $created_at, $imagePath)
+    {
+
+        $query = " INSERT INTO " . $this->table . " (title, content, user_id, created_at, image) VALUES (:title, :content, :user_id, :created_at,:image) ";
 
         $stmt = $this->conn->prepare($query);
 
@@ -108,7 +144,3 @@ class Article{
         return $stmt->execute();
     }
 }
-?>
-
-
-

@@ -22,7 +22,9 @@ $articles = $article->get_all();
                         <img
                             src="<?php echo htmlspecialchars($articleItem->image) ?>"
                             class="img-fluid"
-                            alt="Blog Post Image">
+                            alt="Blog Post Image"
+                            style="width: 350px;height:200px"
+                            >
                     <?php else: ?>
                         <img
                             src="https://via.placeholder.com/350x200"

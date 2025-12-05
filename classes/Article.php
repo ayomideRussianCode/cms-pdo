@@ -93,6 +93,20 @@ class Article{
         return date('F j,Y', strtotime($date));
     }
     
+    public function create($title, $content, $author_id, $created_at) {
+
+        $query = " INSERT INTO " . $this->table . " (title, content, user_id, created_at) VALUES (:title, :content, :user_id, :created_at) " ;
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':content', $content);
+        $stmt->bindParam(':user_id', $author_id);
+        $stmt->bindParam(':created_at', $created_at);
+        // $stmt->bindParam(':image', $image);
+
+        return $stmt->execute();
+    }
 }
 ?>
 

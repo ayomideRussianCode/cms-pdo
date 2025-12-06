@@ -15,6 +15,10 @@ $userArticles  = $article->getArticlesByUser($userId);
 <!-- Main Content -->
 <main class="container my-5">
     <h2 class="mb-4"> Welcome <?php echo $_SESSION['username'] ?> , to your Admin Dashboard</h2>
+
+    <form method="POST" action="create-dummy-article.php" >
+        <button class="btn btn-primary mb-3" type="submit">Generate Article</button>
+    </form>
     <!-- Articles Table -->
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">

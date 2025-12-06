@@ -261,7 +261,7 @@ class Article
 
 
           //PULLING THESE ARTICLES AS OBJECTS
-            $query = " SELECT id FROM " . $this->table . " ORDER BY id ASC ";
+            $query = " SELECT id FROM " . $this->table;
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
 

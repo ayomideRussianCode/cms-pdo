@@ -37,6 +37,9 @@ $userArticles  = $article->getArticlesByUser($userId);
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark">
                 <tr>
+                    <thi>
+                        <input type="checkbox" id="selectAll">
+                    </thi>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Author</th>
@@ -52,6 +55,7 @@ $userArticles  = $article->getArticlesByUser($userId);
                     <?php foreach ($userArticles as $articleItem): ?>
                         <!-- Example Article Row -->
                         <tr>
+                            <td><input type="checkbox" class="articleCheckbox" value="<?php echo $articleItem->id; ?>"></td>
                             <td><?php echo $articleItem->id; ?></td>
                             <td><?php echo $articleItem->title; ?></td>
                             <td><?php echo $_SESSION['username']; ?></td>
@@ -77,6 +81,35 @@ $userArticles  = $article->getArticlesByUser($userId);
         </table>
     </div>
 </main>
+
+<script>
+    //select or deselect all checkboxes
+    document.getElementById('selectAll').onclick = function() {
+
+        let checkboxes = document.querySelectorAll('.articleCheckbox');
+
+        for(let checkbox of checkboxes){
+
+            checkbox.checked = this.checked;
+
+
+        }
+
+    };
+
+    //pushing selectedIds to an array
+    document.getElementById('deleteSelectedBtn').onclick = function(){
+
+        let selectedIds = [];
+        let checkboxes = document.querySelectorAll('.articleCheckbox:checked');
+
+        checkboxes.forEach((checkbox) => {
+            selectedIds.push(checkbox.value)
+        })
+    }
+
+
+</script>
 
 <?php
 include 'partials/admin/admin_footer.php';

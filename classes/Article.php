@@ -49,13 +49,13 @@ class Article
 
         if ($article) {
 
-            if($article->user_id ==$_SESSION['user_id']) {
+            if ($article->user_id == $_SESSION['user_id']) {
 
                 return $article;
             } else {
                 redirect('admin.php');
             }
-        }else{
+        } else {
             return false;
         }
     }
@@ -147,6 +147,67 @@ class Article
         $stmt->bindParam(':user_id', $author_id);
         $stmt->bindParam(':created_at', $created_at);
         $stmt->bindParam(':image', $imagePath);
+
+        return $stmt->execute();
+    }
+
+    public function uploadImage($file)
+    {
+
+        $targetDir = 'uploads/';
+
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0755, true);
+        }
+
+        if (isset($file) && $file['error'] === 0) {
+
+            $targetFile = $targetDir . basename($file['name']);
+            $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+            $allowedTypes = ['jpg', 'png', 'jpeg', 'gif'];
+
+            if (in_array($imageFileType, $allowedTypes)) {
+
+                $uniqueFileName = uniqid() . "_" . time() . "." . $imageFileType;
+                $targetFile = $targetFile . "_" . $uniqueFileName;
+
+                if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+
+                    return $targetFile;
+                } else {
+                    return "There was an error uploading the file";
+                }
+            } else {
+                return 'Only JPG, JPEG, GIF and PNG files are allowed';
+            }
+        }
+
+        return '';
+    }
+
+    public function update($id, $title, $content, $author_id, $created_at, $imagePath)
+    {
+
+        $query = " UPDATE " . $this->table . " SET title = :title, content = :content, user_id = :user_id, created_at = :created_at ";
+
+        if ($imagePath) {
+            $query .= ", image = :image";
+        }
+
+        $query .= " WHERE id = :id ";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':title', $title);
+        $stmt->bindParam(':content', $content);
+        $stmt->bindParam(':user_id', $author_id);
+        $stmt->bindParam(':created_at', $created_at);
+
+        if ($imagePath) {
+            $stmt->bindParam(':image', $imagePath, PDO::PARAM_STR);
+        }
 
         return $stmt->execute();
     }

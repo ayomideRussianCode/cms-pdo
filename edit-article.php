@@ -7,6 +7,27 @@ $articleId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 $article = new Article();
 
 $articleData = $article->getArticleById($articleId);
+
+if(isPostRequest()){
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+    $author_id = $_SESSION['user_id'];
+    $created_at = $_POST['date'];
+
+
+    $imagePath = $article->uploadImage($_FILES['featured-image']);
+
+if(strpos($imagePath, 'error') === false) {
+
+    if ($article->update($articleId, $title, $content, $author_id, $created_at, $imagePath)) {
+
+        redirect('admin.php');
+        exit;
+    } else {
+        echo 'FAILED TO UPDATE ARTICLE';
+    }
+}
+}
 ?>
 
 <main class="container my-5">
@@ -24,7 +45,7 @@ $articleData = $article->getArticleById($articleId);
             <label for="content" class="form-label">Content *</label>
             <textarea value="<?php echo $articleData->content; ?>" name="content" class="form-control" id="content" rows="10" placeholder="Enter article content" required></textarea>
         </div>
-        
+
         <?php if (!empty($articleData->image)): ?>
             <div class="mb-3">
                 <label for="image" class="form-label">Current Featured Image </label> <br>

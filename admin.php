@@ -16,9 +16,22 @@ $userArticles  = $article->getArticlesByUser($userId);
 <main class="container my-5">
     <h2 class="mb-4"> Welcome <?php echo $_SESSION['username'] ?> , to your Admin Dashboard</h2>
 
-    <form method="POST" action="create-dummy-article.php" >
-        <button class="btn btn-primary mb-3" type="submit">Generate Article</button>
-    </form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <form class="d-flex align-items-center" method="POST" action="create-dummy-article.php">
+            <label class="form-label me-2" for="articleCount"> Number of Articles </label>
+            <input id="articleCount" min="1" style="width: 100px;" class="form-control" name="article_count" type="number">
+            <button id="articleCount" class="btn btn-primary " type="submit">Generate Article</button>
+        </form>
+
+        <form method="POST">
+            <button name="reorder_articles" class="btn btn-warning " type="submit">Generate Article</button>
+        </form>
+
+        <button id="deleteSelectedBtn" class="btn btn-danger">Delete Selected Articles </button>
+    </div>
+
+
     <!-- Articles Table -->
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle">

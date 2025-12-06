@@ -43,7 +43,7 @@ $userArticles  = $article->getArticlesByUser($userId);
                             <td>
                                 <a href="edit-article.php?id=<?php echo $articleItem->id; ?>" class="btn btn-sm btn-primary me-1">Edit</a>
                             <td>
-                                <form action="<?php echo base_url("delete_article.php") ?>" method="POST">
+                                <form onsubmit="return confirmDelete( <?php echo $articleItem->id; ?> )" action="<?php echo base_url("delete_article.php") ?>" method="POST">
                                     <input value="<?php echo $articleItem->id; ?>" type="hidden" name="id">
                                     <button class="btn btn-sm btn-danger" ">Delete</button>
                                     <!-- <button class=" btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button> -->

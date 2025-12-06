@@ -18,14 +18,14 @@ $userArticles  = $article->getArticlesByUser($userId);
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <form class="d-flex align-items-center" method="POST" action="create-dummy-article.php">
+        <form class="d-flex align-items-center" method="POST" action="<?php echo base_url('create-dummy-article.php') ?>">
             <label class="form-label me-2" for="articleCount"> Number of Articles </label>
             <input id="articleCount" min="1" style="width: 100px;" class="form-control" name="article_count" type="number">
             <button id="articleCount" class="btn btn-primary " type="submit">Generate Article</button>
         </form>
 
-        <form method="POST">
-            <button name="reorder_articles" class="btn btn-warning " type="submit">Generate Article</button>
+        <form action="<?php echo base_url('reorder-articles.php') ?>" method="POST">
+            <button name="reorder_articles" class="btn btn-warning " type="submit">Reorder Article IDs</button>
         </form>
 
         <button id="deleteSelectedBtn" class="btn btn-danger">Delete Selected Articles </button>

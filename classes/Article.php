@@ -248,4 +248,59 @@ class Article
         return true;
      
     }
+
+    public function reorderAndResetAutoIncrement() {
+
+        //Transaction as WHOLE (BIG UNIT OF STEPS)
+
+        try{
+
+            //DB TRANSACTIONS
+
+            $this->conn->beginTransaction();
+
+
+          //PULLING THESE ARTICLES AS OBJECTS
+            $query = " SELECT id FROM " . $this->table . " ORDER BY id ASC ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            $articles = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            //update each articles IDs in sequence
+
+            $newId = 1;
+
+            //LOOPING THROUGH THEM AND BINDING TO PARAMS
+
+            foreach($articles as $article) {
+
+                $updateQuery = " UPDATE " . $this->table . " SET id = :newId WHERE id = :old_id";
+                $updateStmt = $this->conn->prepare($updateQuery);
+                $updateStmt->bindParam(':newId', $newId, PDO::PARAM_INT);
+                $updateStmt->bindParam(':old_id', $article->id, PDO::PARAM_INT);
+                $updateStmt->execute();
+                $newId++;
+            }
+
+            //RESET AUTO INCREMENT
+
+            $nextAutoIncrementId = $newId;
+
+            //ALTERING THE TABLES AND BINDING AGAIN
+
+            $resetQuery = " ALTER TABLE " . $this->table . " AUTO_INCREMENT = :next_auto_increment ";
+            $resetStmt = $this->conn->prepare($resetQuery);
+            $resetStmt->bindParam(':next_auto_increment', $nextAutoIncrementId, PDO::PARAM_INT);
+            $resetStmt->execute();
+
+            $this->conn->commit();
+            return true;
+
+        }catch(Exception $exception){
+
+            $this->conn->rollBack();
+            throw $exception;
+        }
+    }
 }

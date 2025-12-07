@@ -20,7 +20,7 @@ $userArticles  = $article->getArticlesByUser($userId);
 
         <form class="d-flex align-items-center" method="POST" action="<?php echo base_url('create-dummy-article.php') ?>">
             <label class="form-label me-2" for="articleCount"> Number of Articles </label>
-            <input id="articleCount" min="1" style="width: 100px;" class="form-control" name="article_count" type="number">
+            <input id="articleCount" min="1" style="width: 100px;" class="form-control me-2" name="article_count" type="number">
             <button id="articleCount" class="btn btn-primary " type="submit">Generate Article</button>
         </form>
 
@@ -37,9 +37,9 @@ $userArticles  = $article->getArticlesByUser($userId);
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark">
                 <tr>
-                    <thi>
+                    <th>
                         <input type="checkbox" id="selectAll">
-                    </thi>
+                    </th>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Author</th>
@@ -47,6 +47,7 @@ $userArticles  = $article->getArticlesByUser($userId);
                     <th>Excerpt</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>AJAX Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,7 +65,7 @@ $userArticles  = $article->getArticlesByUser($userId);
                             <td>
                                 <a href="edit-article.php?id=<?php echo $articleItem->id; ?>" class="btn btn-sm btn-primary me-1">Edit</a>
                             <td>
-                                <form onsubmit="return confirmDelete( <?php echo $articleItem->id; ?> )" action="<?php echo base_url("delete_article.php") ?>" method="POST">
+                                <form onsubmit="confirmDelete( <?php echo $articleItem->id; ?> )" action="<?php echo base_url("delete_article.php") ?>" method="POST">
                                     <input value="<?php echo $articleItem->id; ?>" type="hidden" name="id">
                                     <button class="btn btn-sm btn-danger" ">Delete</button>
                                     <!-- <button class=" btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button> -->
@@ -72,6 +73,7 @@ $userArticles  = $article->getArticlesByUser($userId);
                                 </form>
                             </td>
                             </td>
+                            <td> <button data-id="<?php echo $articleItem->id; ?>" class="btn btn-sm btn-danger delete-single">AJAX Delete</button></td>
                         </tr>
                         <!-- You can add more articles here -->
                     <?php endforeach; ?>
@@ -85,14 +87,9 @@ $userArticles  = $article->getArticlesByUser($userId);
 <script>
     //select or deselect all checkboxes
     document.getElementById('selectAll').onclick = function() {
-
         let checkboxes = document.querySelectorAll('.articleCheckbox');
-
-        for(let checkbox of checkboxes){
-
+        for (let checkbox of checkboxes) {
             checkbox.checked = this.checked;
-
-
         }
 
     };
@@ -102,17 +99,41 @@ $userArticles  = $article->getArticlesByUser($userId);
 
         let selectedIds = [];
         let checkboxes = document.querySelectorAll('.articleCheckbox:checked');
-
         checkboxes.forEach((checkbox) => {
             selectedIds.push(checkbox.value)
-        })
+        });
+
+        if(selectedIds.length === 0) {
+            alert("You have to select at least one article to delete.");
+            return;
+        }
+
+        if (confirm(" Are you sure you want to delete article?")){
+            sendDeleteRequest(selectedIds)
+        }
     }
 
+    document.querySelectorAll('.delete-single').forEach((button)=>{
+        button.onclick = function() {
+            let articleId = this.getAttribute('data-id');
+            if (confirm("Are you sure you want to delete  article " + articleId + '?')) {
+                sendDeleteRequest([articleId]);
+            }
 
+        }
+    })
+
+    function sendDeleteRequest(selectedIds) {
+
+        console.log('Deleted');
+    }
 </script>
+
+
+
+
 
 <?php
 include 'partials/admin/admin_footer.php';
-
 
 ?>

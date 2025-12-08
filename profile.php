@@ -34,19 +34,19 @@ include 'partials/admin/admin_navbar.php';
                         <!-- Form Group (username)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Username</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Please enter Username" value="edwindiaz" disabled>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Please enter Username" value="Ayomide" disabled>
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (first name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputFirstName">First name</label>
-                                <input class="form-control" id="inputFirstName" type="text" name="first_name" placeholder="Please enter First name" value="Edwin">
+                                <input class="form-control" id="inputFirstName" type="text" name="first_name" placeholder="Please enter First name" value="Ayomide">
                             </div>
                             <!-- Form Group (last name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLastName">Last name</label>
-                                <input class="form-control" id="inputLastName" type="text" name="last_name" placeholder="Please enter Last name" value="Diaz">
+                                <input class="form-control" id="inputLastName" type="text" name="last_name" placeholder="Please enter Last name" value="Elizabeth">
                             </div>
                         </div>
                         <!-- Form Row-->
@@ -54,30 +54,30 @@ include 'partials/admin/admin_navbar.php';
                             <!-- Form Group (organization name)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputOrgName">Organization name</label>
-                                <input class="form-control" id="inputOrgName" type="text" name="organization" placeholder="Please enter Organization name" value="Acme Corporation">
+                                <input class="form-control" id="inputOrgName" type="text" name="organization" placeholder="Please enter Organization name" value="Lizz_International ">
                             </div>
                             <!-- Form Group (location)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputLocation">Location</label>
-                                <input class="form-control" id="inputLocation" type="text" name="location" placeholder="Please enter Location" value="New York, USA">
+                                <input class="form-control" id="inputLocation" type="text" name="location" placeholder="Please enter Location" value="Ibadan, Nigeria">
                             </div>
                         </div>
                         <!-- Form Group (email address)-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputEmailAddress">Email address</label>
-                            <input class="form-control" id="inputEmailAddress" type="email" name="email" placeholder="Please enter Email address" value="EdwinDiaz@edwindiaz.com">
+                            <input class="form-control" id="inputEmailAddress" type="email" name="email" placeholder="Please enter Email address" value="ayindeayomide7@gmail.com">
                         </div>
                         <!-- Form Row-->
                         <div class="row gx-3 mb-3">
                             <!-- Form Group (phone number)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputPhone">Phone number</label>
-                                <input class="form-control" id="inputPhone" type="tel" name="phone" placeholder="Please enter Phone number" value="+1 (555) 123-4567">
+                                <input class="form-control" id="inputPhone" type="tel" name="phone" placeholder="Please enter Phone number" value="+234 905 9972 694">
                             </div>
                             <!-- Form Group (birthday)-->
                             <div class="col-md-6">
                                 <label class="small mb-1" for="inputBirthday">Birthday</label>
-                                <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Please enter Birthday" value="1990-01-01">
+                                <input class="form-control" id="inputBirthday" type="date" name="birthday" placeholder="Please enter Birthday" value="2002-02-18">
                             </div>
                         </div>
                         <!-- Save changes button-->
@@ -91,28 +91,6 @@ include 'partials/admin/admin_navbar.php';
 
 
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-3 mt-auto">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2045 CMS PDO System. All rights reserved by Edwin Diaz from EdwinDiaz.com</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-
-    ></script>
-
-    <!-- Custom JS -->
-    <script>
-        function confirmDelete(articleId) {
-            if (confirm('Are you sure you want to delete this article?')) {
-                // Implement deletion logic here
-                // For example, make an AJAX request to delete the article
-                alert('Article ' + articleId + ' deleted.');
-            }
-        }
-    </script>
-</body>
-</html>
+<?php
+include 'partials/admin/admin_footer.php';
+?>

@@ -2,7 +2,7 @@
 <footer class="bg-light py-4">
     <div class="container text-center">
         <p class="text-muted mb-0">
-            &copy; 2045 CMS PDO System. All rights reserved by Edwin Diaz from EdwinDiaz.com
+            &copy; 2025 CMS PDO System. All rights reserved by Ayomide Elizabeth from Lizz_International.com
         </p>
     </div>
 </footer>

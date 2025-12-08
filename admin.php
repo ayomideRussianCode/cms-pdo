@@ -116,16 +116,33 @@ $userArticles  = $article->getArticlesByUser($userId);
     document.querySelectorAll('.delete-single').forEach((button)=>{
         button.onclick = function() {
             let articleId = this.getAttribute('data-id');
-            if (confirm("Are you sure you want to delete  article " + articleId + '?')) {
+            if(confirm("Are you sure you want to delete  article " + articleId + '?')) {
                 sendDeleteRequest([articleId]);
             }
 
         }
     })
 
-    function sendDeleteRequest(selectedIds) {
+    function sendDeleteRequest(articleIds) {
 
-        console.log('Deleted');
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', "<?php echo base_url('delete_articles.php');?>", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+
+            if(xhr.readyState === 4 && xhr.status === 200) {
+
+                let response = JSON.parse(xhr.responseText);
+
+                if(response.success) {
+                    alert('An article got deleted');
+                    location.reload();
+                } else{
+                    alert("Failed to delete:" + response.message)
+                }
+            };
+        }
+        xhr.send(JSON.stringify({article_ids: articleIds}));
     }
 </script>
 

@@ -303,4 +303,13 @@ class Article
             throw $exception;
         }
     }
+
+    public function deleteMultiple($articleIds) {
+
+        $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+        $query = " DELETE FROM " . $this->table . " WHERE id IN ($placeholders) ";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute($articleIds);
+
+    }
 }
